@@ -93,15 +93,15 @@ export default function NegociosPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{t.hero.title2}</span>
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed max-w-3xl mb-8">{t.hero.desc}</p>
-          <div className="mb-12">
-            <a href="https://demo-veterinaria.vercel.app" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              {t.hero.btnDemo} <ExternalLink className="w-5 h-5" />
-            </a>
-          </div>
-          <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(16,185,129,0.15)] overflow-hidden">
-            <video src="/video-veterinaria.mp4" controls autoPlay muted loop className="w-full h-full object-cover aspect-video">
-              Tu navegador no soporta el formato de video.
-            </video>
+          <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden relative" style={{ paddingTop: '56.25%' }}>
+            <iframe 
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube-nocookie.com/embed/jfKIfzM3kqo?rel=0&modestbranding=1"
+              title="Video de ATLAS"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+            ></iframe>
           </div>
         </motion.div>
       </section>

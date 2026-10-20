@@ -90,18 +90,15 @@ export default function AtlasPage() {
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed max-w-3xl mb-12">{t.hero.desc}</p>
 
-          <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden">
-            <video 
-              src="https://youtu.be/blPHuVVpAO8" 
-              controls 
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              className="w-full h-full object-cover aspect-video"
-            >
-              Video de Atlas
-            </video>
+          <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden relative" style={{ paddingTop: '56.25%' }}>
+            <iframe 
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube-nocookie.com/embed/blPHuVVpAO8?rel=0&modestbranding=1"
+              title="Video de ATLAS"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+            ></iframe>
           </div>
         </motion.div>
       </section>
