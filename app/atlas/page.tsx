@@ -92,7 +92,7 @@ export default function AtlasPage() {
 
           <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden">
             <video 
-              src="https://drive.google.com/uc?export=download&id=1enV1OlitjmjkgwZ04N_N89IzUPmhJ7en" 
+              src="https://youtu.be/blPHuVVpAO8" 
               controls 
               autoPlay 
               muted 
@@ -100,7 +100,7 @@ export default function AtlasPage() {
               playsInline
               className="w-full h-full object-cover aspect-video"
             >
-              Tu navegador no soporta el formato de video.
+              Video de Atlas
             </video>
           </div>
         </motion.div>
