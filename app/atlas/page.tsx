@@ -91,7 +91,15 @@ export default function AtlasPage() {
           <p className="text-xl text-zinc-400 leading-relaxed max-w-3xl mb-12">{t.hero.desc}</p>
 
           <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden">
-            <video src="/video-atlas.mp4" controls autoPlay muted loop className="w-full h-full object-cover aspect-video">
+            <video 
+              src="https://drive.google.com/uc?export=download&id=1enV1OlitjmjkgwZ04N_N89IzUPmhJ7en" 
+              controls 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className="w-full h-full object-cover aspect-video"
+            >
               Tu navegador no soporta el formato de video.
             </video>
           </div>
