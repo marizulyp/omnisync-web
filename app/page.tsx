@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Send, Globe, ChevronDown, TerminalSquare, Building2, Cpu, Workflow } from "lucide-react";
+import { ArrowRight, Send, Globe, ChevronDown, TerminalSquare, Building2, Cpu, Workflow, Menu, X } from "lucide-react";
 import { useLanguage } from "./context/LanguageContext";
 
 const content = {
@@ -28,6 +28,7 @@ const content = {
 export default function Home() {
   const { idioma, setIdioma } = useLanguage();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => setMousePosition({ x: e.clientX, y: e.clientY });
@@ -53,14 +54,18 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       </div>
 
-      <motion.div className="fixed top-0 left-0 w-[600px] h-[600px] bg-white/5 rounded-full pointer-events-none blur-[150px] z-10" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
+      <motion.div className="hidden md:block fixed top-0 left-0 w-[600px] h-[600px] bg-white/5 rounded-full pointer-events-none blur-[150px] z-10" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
 
+      {/* BARRA DE NAVEGACIÓN */}
       <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-zinc-950/60 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-20">
+          
+          {/* Logo */}
           <div className="text-2xl font-extrabold tracking-tight relative z-20">
             Omni<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400">Sync</span>
           </div>
 
+          {/* Menú Computadora */}
           <nav className="hidden md:flex gap-10 text-sm font-medium text-zinc-400 items-center relative z-20">
             <a href="#nosotros" className="hover:text-white transition-colors">{t.nav.nosotros}</a>
             <div className="relative group py-4">
@@ -87,15 +92,62 @@ export default function Home() {
             <a href="#contacto" className="hover:text-white transition-colors">{t.nav.contacto}</a>
           </nav>
 
+          {/* Opciones Derecha (Idioma Escritorio / Botón Menú Celular) */}
           <div className="flex items-center gap-4 relative z-20">
+            {/* Idioma - Solo Escritorio */}
             <div className="hidden md:flex items-center gap-2 text-xs font-bold text-zinc-500 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md">
               <Globe className="w-3.5 h-3.5 text-zinc-400" />
               <button onClick={() => setIdioma("ES")} className={`transition-colors ${idioma === "ES" ? "text-white" : "hover:text-white"}`}>ES</button>
               <span>|</span>
               <button onClick={() => setIdioma("EN")} className={`transition-colors ${idioma === "EN" ? "text-white" : "hover:text-white"}`}>EN</button>
             </div>
+
+            {/* Botón Menú Hamburguesa - Solo Celular */}
+            <button 
+              className="md:hidden text-zinc-400 hover:text-white transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            </button>
           </div>
         </div>
+
+        {/* MENÚ DESPLEGABLE CELULAR */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden absolute top-20 left-0 w-full bg-zinc-950/95 backdrop-blur-2xl border-b border-white/10 p-6 shadow-2xl flex flex-col gap-6"
+            >
+              <nav className="flex flex-col gap-5 text-lg font-medium text-zinc-300">
+                <a href="#nosotros" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white">{t.nav.nosotros}</a>
+                
+                <div className="flex flex-col gap-4 border-l-2 border-white/10 pl-4 ml-2">
+                  <span className="text-sm text-zinc-500 uppercase tracking-widest font-bold">{t.nav.portafolio}</span>
+                  <Link href="/atlas" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-white hover:text-blue-400 transition-colors">
+                    <TerminalSquare className="w-5 h-5 text-blue-400" /> {t.navDrop.atlas}
+                  </Link>
+                  <Link href="/negocios" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-white hover:text-emerald-400 transition-colors">
+                    <Building2 className="w-5 h-5 text-emerald-400" /> {t.navDrop.saas}
+                  </Link>
+                </div>
+
+                <a href="#contacto" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white">{t.nav.contacto}</a>
+              </nav>
+
+              <div className="w-full h-px bg-white/10 my-2"></div>
+
+              {/* Selector Idioma - Versión Celular */}
+              <div className="flex items-center justify-center gap-6 pb-2">
+                <Globe className="w-5 h-5 text-zinc-400" />
+                <button onClick={() => { setIdioma("ES"); setIsMobileMenuOpen(false); }} className={`text-lg font-bold transition-colors ${idioma === "ES" ? "text-white border-b-2 border-cyan-400" : "text-zinc-500"}`}>ESPAÑOL</button>
+                <button onClick={() => { setIdioma("EN"); setIsMobileMenuOpen(false); }} className={`text-lg font-bold transition-colors ${idioma === "EN" ? "text-white border-b-2 border-cyan-400" : "text-zinc-500"}`}>ENGLISH</button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <div className="relative z-20">
