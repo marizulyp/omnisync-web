@@ -107,13 +107,14 @@ export default function NegociosPage() {
       </section>
 
       <section className="border-y border-white/5 bg-white/5 backdrop-blur-sm py-12 px-6 relative z-10">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-          <div className="md:w-1/3"><h3 className="text-white font-bold text-xl mb-2">{t.pillars.p1Title}</h3><p className="text-zinc-400 text-sm leading-relaxed">{t.pillars.p1Desc}</p></div>
-          <div className="hidden md:block w-px h-16 bg-white/10"></div>
-          <div className="md:w-1/3"><h3 className="text-white font-bold text-xl mb-2">{t.pillars.p2Title}</h3><p className="text-zinc-400 text-sm leading-relaxed">{t.pillars.p2Desc}</p></div>
-          <div className="hidden md:block w-px h-16 bg-white/10"></div>
-          <div className="md:w-1/3"><h3 className="text-white font-bold text-xl mb-2">{t.pillars.p3Title}</h3><p className="text-zinc-400 text-sm leading-relaxed">{t.pillars.p3Desc}</p></div>
-        </div>
+<         div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/#contacto" className="px-8 py-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-colors">{t.cta.btnQuote}</Link>
+            
+            {/* EL NUEVO PUENTE HACIA TU SAAS MULTI-TENANT */}
+            <a href="http://localhost:3001/registro" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
+              {t.cta.btnDemo} <ExternalLink className="w-5 h-5" />
+            </a>
+          </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-24 relative z-10">
