@@ -1,14 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { 
-  ArrowLeft, CalendarDays, Users, FileText, ClipboardPlus, 
-  PackageSearch, Receipt, TrendingUp, UserCog, LineChart, 
+import {
+  ArrowLeft, CalendarDays, Users, FileText, ClipboardPlus,
+  PackageSearch, Receipt, TrendingUp, UserCog, LineChart,
   ExternalLink, Blocks
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+
+// Reemplaza por la URL de producción en Vercel de omnisync-independiente
+// (Para probar en local temporalmente, puedes usar "http://localhost:3001/login")
+const DEMO_LOGIN_URL = "hhttps://omnisync-independiente.vercel.app/login?callbackUrl=%2F";
 
 const saasContent = {
   ES: {
@@ -63,7 +67,7 @@ export default function NegociosPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-emerald-500/30 pb-24 overflow-hidden relative">
-      
+
       <motion.div className="fixed top-0 left-0 w-[600px] h-[600px] bg-emerald-600/10 rounded-full pointer-events-none blur-[150px] z-0" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-600/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none -z-10"></div>
@@ -79,7 +83,7 @@ export default function NegociosPage() {
           <div className="w-1/3 flex justify-center text-xl font-extrabold tracking-tight text-white relative z-10">
             Omni<span className="text-emerald-400">Sync</span>
           </div>
-          <div className="w-1/3"></div> {/* Espacio vacío para centrar perfectamente el logo */}
+          <div className="w-1/3"></div>
         </div>
       </header>
 
@@ -89,17 +93,17 @@ export default function NegociosPage() {
             <Blocks className="w-4 h-4 mr-2" /> {t.hero.badge}
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight max-w-4xl">
-            {t.hero.title1} <br className="hidden md:block"/>
+            {t.hero.title1} <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{t.hero.title2}</span>
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed max-w-3xl mb-8">{t.hero.desc}</p>
           <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden relative" style={{ paddingTop: '56.25%' }}>
-            <iframe 
+            <iframe
               className="absolute top-0 left-0 w-full h-full"
               src="https://www.youtube-nocookie.com/embed/jfKIfzM3kqo?rel=0&modestbranding=1"
               title="Video de ATLAS"
               frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             ></iframe>
           </div>
@@ -107,14 +111,14 @@ export default function NegociosPage() {
       </section>
 
       <section className="border-y border-white/5 bg-white/5 backdrop-blur-sm py-12 px-6 relative z-10">
-<         div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#contacto" className="px-8 py-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-colors">{t.cta.btnQuote}</Link>
-            
-            {/* EL NUEVO PUENTE HACIA TU SAAS MULTI-TENANT */}
-            <a href="http://localhost:3001/registro" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
-              {t.cta.btnDemo} <ExternalLink className="w-5 h-5" />
-            </a>
-          </div>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/#contacto" className="px-8 py-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-colors">{t.cta.btnQuote}</Link>
+
+          {/* EL NUEVO PUENTE HACIA TU SAAS MULTI-TENANT */}
+          <a href={DEMO_LOGIN_URL} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
+            {t.cta.btnDemo} <ExternalLink className="w-5 h-5" />
+          </a>
+        </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-24 relative z-10">
@@ -139,7 +143,7 @@ export default function NegociosPage() {
           <p className="text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">{t.cta.desc}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/#contacto" className="px-8 py-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-colors">{t.cta.btnQuote}</Link>
-            <a href="https://demo-veterinaria.vercel.app" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
+            <a href={DEMO_LOGIN_URL} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
               {t.cta.btnDemo} <ExternalLink className="w-5 h-5" />
             </a>
           </div>
