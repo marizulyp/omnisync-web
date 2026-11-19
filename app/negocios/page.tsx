@@ -12,7 +12,7 @@ import { useLanguage } from "../context/LanguageContext";
 
 // Reemplaza por la URL de producción en Vercel de omnisync-independiente
 // (Para probar en local temporalmente, puedes usar "http://localhost:3001/login")
-const DEMO_LOGIN_URL = "hhttps://omnisync-independiente.vercel.app/login?callbackUrl=%2F";
+const DEMO_LOGIN_URL = "https://omnisync-independiente.vercel.app/login?callbackUrl=%2F";
 
 const saasContent = {
   ES: {
