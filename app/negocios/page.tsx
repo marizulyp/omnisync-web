@@ -9,9 +9,9 @@ import {
   ExternalLink, Blocks
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { ThemeToggle } from "../../components/ui/ThemeToggle";
 
-// Reemplaza por la URL de producción en Vercel de omnisync-independiente
-// (Para probar en local temporalmente, puedes usar "http://localhost:3001/login")
+// URL de producción en Vercel de omnisync-independiente
 const DEMO_LOGIN_URL = "https://omnisync-independiente.vercel.app/login?callbackUrl=%2F";
 
 const saasContent = {
@@ -63,17 +63,27 @@ export default function NegociosPage() {
     return () => window.removeEventListener("mousemove", updateMousePosition);
   }, []);
 
+  const abrirDemo = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const temaActual = document.documentElement.classList.contains("dark")
+      ? "dark"
+      : "light";
+    const url = new URL(DEMO_LOGIN_URL);
+    url.searchParams.set("tema", temaActual);
+    window.open(url.toString(), "_blank", "noopener,noreferrer");
+  };
+
   const t = saasContent[idioma];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-emerald-500/30 pb-24 overflow-hidden relative">
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-emerald-500/30 pb-24 overflow-hidden relative transition-colors duration-300">
 
-      <motion.div className="fixed top-0 left-0 w-[600px] h-[600px] bg-emerald-600/10 rounded-full pointer-events-none blur-[150px] z-0" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
+      <motion.div className="hidden dark:block fixed top-0 left-0 w-[600px] h-[600px] bg-emerald-600/10 rounded-full pointer-events-none blur-[150px] z-0" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-emerald-600/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none -z-10"></div>
 
       {/* BARRA DE NAVEGACIÓN LIMPIA */}
-      <header className="fixed top-0 w-full z-40 border-b border-white/5 bg-zinc-950/60 backdrop-blur-xl">
+      <header className="fixed top-0 w-full z-40 border-b border-white/5 bg-zinc-950/60 backdrop-blur-xl transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-20 relative">
           <div className="w-1/3 flex justify-start">
             <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-zinc-400 hover:text-white transition-colors bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:bg-white/10 relative z-10">
@@ -83,7 +93,9 @@ export default function NegociosPage() {
           <div className="w-1/3 flex justify-center text-xl font-extrabold tracking-tight text-white relative z-10">
             Omni<span className="text-emerald-400">Sync</span>
           </div>
-          <div className="w-1/3"></div>
+          <div className="w-1/3 flex justify-end relative z-10">
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -94,14 +106,14 @@ export default function NegociosPage() {
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight max-w-4xl">
             {t.hero.title1} <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">{t.hero.title2}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-cyan-600 dark:from-emerald-400 dark:to-cyan-400">{t.hero.title2}</span>
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed max-w-3xl mb-8">{t.hero.desc}</p>
-          <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden relative" style={{ paddingTop: '56.25%' }}>
+          <div className="w-full max-w-5xl bg-black rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(37,99,235,0.15)] overflow-hidden relative" style={{ paddingTop: "56.25%" }}>
             <iframe
               className="absolute top-0 left-0 w-full h-full"
               src="https://www.youtube-nocookie.com/embed/jfKIfzM3kqo?rel=0&modestbranding=1"
-              title="Video de ATLAS"
+              title="Video de OmniSync"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -115,7 +127,13 @@ export default function NegociosPage() {
           <Link href="/#contacto" className="px-8 py-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-colors">{t.cta.btnQuote}</Link>
 
           {/* EL NUEVO PUENTE HACIA TU SAAS MULTI-TENANT */}
-          <a href={DEMO_LOGIN_URL} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
+          <a
+            href={DEMO_LOGIN_URL}
+            onClick={abrirDemo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105"
+          >
             {t.cta.btnDemo} <ExternalLink className="w-5 h-5" />
           </a>
         </div>
@@ -138,12 +156,18 @@ export default function NegociosPage() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mb-12 text-center relative z-10">
-        <div className="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-white/10 rounded-3xl p-12 shadow-2xl">
+        <div className="bg-gradient-to-br from-white to-emerald-50/70 dark:from-zinc-900 dark:to-zinc-950 border border-emerald-500/20 dark:border-white/10 rounded-3xl p-12 shadow-2xl">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t.cta.title}</h2>
           <p className="text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">{t.cta.desc}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/#contacto" className="px-8 py-4 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl transition-colors">{t.cta.btnQuote}</Link>
-            <a href={DEMO_LOGIN_URL} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105">
+            <a
+              href={DEMO_LOGIN_URL}
+              onClick={abrirDemo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-transform hover:scale-105"
+            >
               {t.cta.btnDemo} <ExternalLink className="w-5 h-5" />
             </a>
           </div>
