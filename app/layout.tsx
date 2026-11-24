@@ -7,7 +7,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "OmniSync | El Ecosistema Tecnológico Definitivo",
-  description: "Ingeniería de software de nivel empresarial. Automatización y SaaS modular.",
+  description:
+    "Ingeniería de software de nivel empresarial. Automatización y SaaS modular.",
   icons: {
     icon: [
       { url: "/icon-192.png?v=2", type: "image/png", sizes: "192x192" },
@@ -21,17 +22,33 @@ export const metadata: Metadata = {
 // Esta línea apaga la alerta de "Insight" de navegación de Next.js
 export const instant = false;
 
+const SCRIPT_TEMA = `
+(function() {
+  try {
+    var tema = localStorage.getItem("omnisync-web-tema");
+    if (tema === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+  } catch (e) {
+    document.documentElement.classList.add("dark");
+  }
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       <body className={inter.className}>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Send, Globe, ChevronDown, TerminalSquare, Building2, Cpu, Workflow, Menu, X } from "lucide-react";
 import { useLanguage } from "./context/LanguageContext";
+import { ThemeToggle } from "../components/ui/ThemeToggle";
 
 const content = {
   ES: {
@@ -35,7 +36,7 @@ export default function Home() {
     window.addEventListener("mousemove", updateMousePosition);
     return () => window.removeEventListener("mousemove", updateMousePosition);
   }, []);
-  
+
   const t = content[idioma];
 
   const fadeUp: Variants = {
@@ -44,8 +45,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-blue-500/30 overflow-hidden relative">
-      
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-blue-500/30 overflow-hidden relative transition-colors duration-300">
+
       {/* EFECTO AURORA FONDO */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <motion.div animate={{ x: [0, 150, -100, 0], y: [0, -100, 150, 0], scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }} className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[130px]" />
@@ -54,12 +55,12 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       </div>
 
-      <motion.div className="hidden md:block fixed top-0 left-0 w-[600px] h-[600px] bg-white/5 rounded-full pointer-events-none blur-[150px] z-10" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
+      <motion.div className="hidden dark:md:block fixed top-0 left-0 w-[600px] h-[600px] bg-white/5 rounded-full pointer-events-none blur-[150px] z-10" animate={{ x: mousePosition.x - 300, y: mousePosition.y - 300 }} transition={{ type: "tween", ease: "backOut", duration: 0.5 }} />
 
       {/* BARRA DE NAVEGACIÓN */}
-      <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-zinc-950/60 backdrop-blur-xl">
+      <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-zinc-950/60 backdrop-blur-xl transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-20">
-          
+
           {/* Logo */}
           <div className="text-2xl font-extrabold tracking-tight relative z-20">
             Omni<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400">Sync</span>
@@ -92,8 +93,11 @@ export default function Home() {
             <a href="#contacto" className="hover:text-white transition-colors">{t.nav.contacto}</a>
           </nav>
 
-          {/* Opciones Derecha (Idioma Escritorio / Botón Menú Celular) */}
-          <div className="flex items-center gap-4 relative z-20">
+          {/* Opciones Derecha (Tema + Idioma Escritorio / Botón Menú Celular) */}
+          <div className="flex items-center gap-3 relative z-20">
+            {/* Selector de Tema (Escritorio y Celular) */}
+            <ThemeToggle />
+
             {/* Idioma - Solo Escritorio */}
             <div className="hidden md:flex items-center gap-2 text-xs font-bold text-zinc-500 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md">
               <Globe className="w-3.5 h-3.5 text-zinc-400" />
@@ -103,7 +107,7 @@ export default function Home() {
             </div>
 
             {/* Botón Menú Hamburguesa - Solo Celular */}
-            <button 
+            <button
               className="md:hidden text-zinc-400 hover:text-white transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -115,15 +119,15 @@ export default function Home() {
         {/* MENÚ DESPLEGABLE CELULAR */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className="md:hidden absolute top-20 left-0 w-full bg-zinc-950/95 backdrop-blur-2xl border-b border-white/10 p-6 shadow-2xl flex flex-col gap-6"
             >
               <nav className="flex flex-col gap-5 text-lg font-medium text-zinc-300">
                 <a href="#nosotros" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white">{t.nav.nosotros}</a>
-                
+
                 <div className="flex flex-col gap-4 border-l-2 border-white/10 pl-4 ml-2">
                   <span className="text-sm text-zinc-500 uppercase tracking-widest font-bold">{t.nav.portafolio}</span>
                   <Link href="/atlas" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-white hover:text-blue-400 transition-colors">
