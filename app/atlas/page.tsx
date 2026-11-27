@@ -73,7 +73,7 @@ export default function AtlasPage() {
             </Link>
           </div>
           <div className="w-1/3 flex justify-center text-xl font-extrabold tracking-tight text-white relative z-10">
-            Omni<span className="text-blue-400">Sync</span>
+            Orbi<span className="text-blue-400">Sync</span>
           </div>
           <div className="w-1/3"></div> {/* Espacio vacío para centrar perfectamente el logo */}
         </div>

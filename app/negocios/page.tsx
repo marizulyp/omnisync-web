@@ -91,7 +91,7 @@ export default function NegociosPage() {
             </Link>
           </div>
           <div className="w-1/3 flex justify-center text-xl font-extrabold tracking-tight text-white relative z-10">
-            Omni<span className="text-emerald-400">Sync</span>
+            Orbi<span className="text-emerald-400">Sync</span>
           </div>
           <div className="w-1/3 flex justify-end relative z-10">
             <ThemeToggle />
@@ -113,7 +113,7 @@ export default function NegociosPage() {
             <iframe
               className="absolute top-0 left-0 w-full h-full"
               src="https://www.youtube-nocookie.com/embed/jfKIfzM3kqo?rel=0&modestbranding=1"
-              title="Video de OmniSync"
+              title="Video de OrbiSync"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

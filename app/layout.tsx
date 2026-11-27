@@ -6,9 +6,9 @@ import { LanguageProvider } from "./context/LanguageContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "OmniSync | El Ecosistema Tecnológico Definitivo",
+  title: "OrbiSync | Todo tu negocio en una misma órbita",
   description:
-    "Ingeniería de software de nivel empresarial. Automatización y SaaS modular.",
+    "Todo tu negocio en una misma órbita. Tu ecosistema operativo, siempre en sincronía.",
   icons: {
     icon: [
       { url: "/icon-192.png?v=2", type: "image/png", sizes: "192x192" },
